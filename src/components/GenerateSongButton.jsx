@@ -1,7 +1,7 @@
+import { useNavigate } from "react-router-dom";
 import RightArrow from "./icons/RightArrow";
 
-function GenerateSongButton({ selectedVibes, lyrics, handleSubmit }) {
-
+function GenerateSongButton({ handleSubmit }) {
   return (
     <div className="w-full flex justify-center align-middle m-3">
       <button
