@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import ErrorAlert from "../components/ErrorAlert";
 import GenerateSongButton from "../components/GenerateSongButton";
 import LyricsTextArea from "../components/LyricsTextArea";
@@ -5,6 +6,8 @@ import VibeSelector from "../components/VibeSelector";
 import { useState } from "react";
 
 function MusicGenerator() {
+  const navigate = useNavigate();
+
   const [selectedVibes, setSelectedVibes] = useState([]);
   const [lyrics, setLyrics] = useState([]);
   const [error, setError] = useState("");
@@ -21,6 +24,8 @@ function MusicGenerator() {
     setError("");
     console.log(selectedVibes);
     console.log(lyrics);
+
+    navigate("/output");
   };
 
   return (
@@ -38,6 +43,9 @@ function MusicGenerator() {
             <LyricsTextArea lyrics={lyrics} setLyrics={setLyrics} />
           </div>
           <div className="flex justify-center items-center">
+            <Link to={"/"}>
+              <button className="btn btn-error btn-soft">Back</button>
+            </Link>
             <GenerateSongButton
               selectedVibes={selectedVibes}
               lyrics={lyrics}
