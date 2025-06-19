@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import RightArrow from "./icons/RightArrow";
 
 function GenerateSongButton({ handleSubmit }) {
