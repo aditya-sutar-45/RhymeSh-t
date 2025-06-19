@@ -1,6 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
-import { ArrowLeft, ArrowRight, HeadphoneOff, Headphones, Pause, Play, Timer, Volume1, Volume2, VolumeX } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  HeadphoneOff,
+  Headphones,
+  Pause,
+  Play,
+  Timer,
+  Volume1,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const formWaveSurferOptions = (ref) => ({
@@ -88,7 +99,12 @@ function AudioPlayer({ audioFile }) {
         <div className="tooltip" data-tip="Back To Home">
           <button
             className="btn btn-error btn-sm btn-square btn-soft"
-            onClick={() => navigate("/")}
+            onClick={() => {
+              if (wavesurfer.current && playing) {
+                wavesurfer.current.pause();
+              }
+              navigate("/");
+            }}
           >
             <ArrowLeft size={16} />
           </button>
