@@ -1,4 +1,4 @@
-import RightArrow from "./icons/RightArrow";
+import { ArrowRight } from "lucide-react";
 
 function GenerateSongButton({ handleSubmit }) {
   return (
@@ -7,7 +7,7 @@ function GenerateSongButton({ handleSubmit }) {
         className="btn btn-success btn-block btn-soft font-poppins"
         onClick={handleSubmit}
       >
-        Generate <RightArrow />
+        Generate <ArrowRight />
       </button>
     </div>
   );

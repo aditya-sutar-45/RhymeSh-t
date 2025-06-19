@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import bg from "../assets/stacked-wave-bg.svg";
-import RightArrow from "../components/icons/RightArrow";
+import { ArrowRight } from "lucide-react";
 
 function NotFoundPage() {
   return (
@@ -21,7 +21,7 @@ function NotFoundPage() {
             <Link to={"/"}>
               <button className="btn btn-primary font-poppins">
                 Go Back
-                <RightArrow />
+                <ArrowRight />
               </button>
             </Link>
           </div>

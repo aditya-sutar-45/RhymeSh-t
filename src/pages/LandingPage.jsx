@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import bg from "../assets/stacked-wave-bg.svg";
-import RightArrow from "../components/icons/RightArrow";
+import { ArrowRight } from "lucide-react";
 
 function LandingPage() {
   return (
@@ -22,7 +22,7 @@ function LandingPage() {
             </p>
             <Link to={"/generate"}>
               <button className="btn btn-primary font-poppins">
-                Get Started <RightArrow />
+                Get Started <ArrowRight />
               </button>
             </Link>
           </div>

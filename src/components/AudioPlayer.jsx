@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
+import { ArrowLeft, ArrowRight, HeadphoneOff, Headphones, Pause, Play, Timer, Volume1, Volume2, VolumeX } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const formWaveSurferOptions = (ref) => ({
   container: ref,
@@ -15,6 +17,8 @@ const formWaveSurferOptions = (ref) => ({
 });
 
 function AudioPlayer({ audioFile }) {
+  const navigate = useNavigate();
+
   const waveFormRef = useRef(null);
   const wavesurfer = useRef(null);
   const [playing, setPlaying] = useState(false);
@@ -75,46 +79,76 @@ function AudioPlayer({ audioFile }) {
     let date = new Date(0);
     date.setSeconds(seconds);
     // return date.toISOString().substring(11, 8);
-    return date.toISOString().substring(11, 22);
+    return date.toISOString().substring(14, 22);
   };
 
   return (
-    <div className="w-1/2 h-1/2 grid grid-cols-1 justify-center content-evenly p-5 glass rounded-box font-poppins">
-      <div ref={waveFormRef}></div>
-      <div className="text-xl">
-        <p>
-          <span className="font-bold text-primary">Now Playing </span>
-          {audioFileName}
-        </p>
-        <p>
-          <span className="font-bold">Duration </span> {formatTime(duration)}{" "}
-          <span className="font-bold">Current Time </span>{" "}
-          {formatTime(currentTime)}
-        </p>
+    <div className="w-1/2 h-80 grid grid-cols-1 justify-center content-evenly p-5 outline-1 rounded-box font-poppins">
+      <div className="flex justify-start items-center gap-2">
+        <div className="tooltip" data-tip="Back To Home">
+          <button
+            className="btn btn-error btn-sm btn-square btn-soft"
+            onClick={() => navigate("/")}
+          >
+            <ArrowLeft size={16} />
+          </button>
+        </div>
+        <span className="font-bungee text-3xl">Your Jam</span>
       </div>
-      <div>
-        <button className="btn btn-primary" onClick={handlePlayPause}>
-          {!playing ? "Play" : "Pause"}
-        </button>
-        <button className="btn btn-secondary" onClick={handeMute}>
-          {muted ? "Unmute" : "Mute"}
-        </button>
-        <p>Volume: {Math.round(volume * 100)}</p>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.05"
-          value={muted ? 0 : volume}
-          class="range"
-          onChange={(e) => handeVolumeChange(parseFloat(e.target.value))}
-        />
-        <button className="btn btn-ghost" onClick={handleVolumeUp}>
-          vol +
-        </button>
-        <button className="btn btn-ghost" onClick={handleVolumeDown}>
-          vol -
-        </button>
+      <div ref={waveFormRef}></div>
+      <div className="flex gap-2 justify-between items-center glass p-2.5 rounded-box mx-2">
+        <div className="join join-vertical">
+          <button
+            className="btn btn-primary btn-sm join-item"
+            onClick={handlePlayPause}
+          >
+            {!playing ? <Play size={20} /> : <Pause size={20} />}
+          </button>
+          <button
+            className="btn btn-soft btn-error btn-sm join-item"
+            onClick={handeMute}
+          >
+            {muted ? <Headphones size={16} /> : <HeadphoneOff size={16} />}
+          </button>
+        </div>
+        <div className="text-xl mr-auto">
+          <p>{audioFileName}</p>
+          <div className="flex gap-1">
+            <Timer />{" "}
+            <span className="text-primary">{formatTime(currentTime)}</span>/
+            {formatTime(duration)}
+          </div>
+        </div>
+        <div>
+          <div>
+            <div className="flex justify-between">
+              <span>Vol: {Math.round(volume * 100)}</span>
+              <div className="join join-horizontal">
+                <button
+                  className="btn btn-outline btn-square btn-sm join-item"
+                  onClick={handleVolumeDown}
+                >
+                  <Volume1 size={20} />
+                </button>
+                <button
+                  className="btn btn-outline btn-square btn-sm join-item"
+                  onClick={handleVolumeUp}
+                >
+                  <Volume2 size={20} />
+                </button>
+              </div>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.05"
+              value={muted ? 0 : volume}
+              className="range range-xs"
+              onChange={(e) => handeVolumeChange(parseFloat(e.target.value))}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
